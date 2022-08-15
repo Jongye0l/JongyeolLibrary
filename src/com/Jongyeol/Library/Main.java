@@ -14,9 +14,8 @@ public class Main extends JavaPlugin {
         new CustomBoolean();
         main = this;
         Prefix.CheckPlugin();
-    }
-    @Override
-    public void onDisable(){
-
+        saveDefaultConfig();
+        getServer().getPluginManager().registerEvents(new EventListener(this), this);
+        new Prefix();
     }
 }

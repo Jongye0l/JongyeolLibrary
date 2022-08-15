@@ -9,17 +9,18 @@ import org.bukkit.entity.Player;
 public class CommandNotification {
     public static void CommandNoti(String Permission, String String, CommandSender Sender) {
         String sender = "";
-        String sendern = "";
         if(Sender instanceof Player) {
-            sender = Sender.getName();
-            sendern = Sender.getName();
-            if (Prefix.Prefixset((Player) Sender)) { sender = Prefix.getPrefix((Player) Sender) + " " + Sender.getName(); }
+            try{
+                sender = Prefix.getPrefix((Player) Sender) + Sender.getName();
+            } catch (NullPointerException e){
+                sender = Sender.getName();
+            }
         } else {
             sender = "Server";
         }
         for(Player player : Bukkit.getOnlinePlayers()){
             if(player.hasPermission(Permission)){
-                if(player.getName() != sendern){
+                if(!player.equals(Sender)){
                     player.sendMessage(ChatColor.GRAY + "[" + sender + ChatColor.GRAY + ": " + String + "]");
                 }
             }
